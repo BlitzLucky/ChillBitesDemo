@@ -46,7 +46,6 @@ const CartPage = () => {
                             {preorderItems.map(item => (
                                 <li key={item.id} className="flex flex-col sm:flex-row items-center justify-between border-b border-pink-100 pb-4">
                                     <div className="flex items-center mb-4 sm:mb-0">
-                                        <img src={item.imageUrl || `https://via.placeholder.com/100x100.png/FFC0CB/333333?text=${encodeURIComponent(item.name)}`} alt={item.name} className="h-20 w-20 rounded-md object-cover mr-4" />
                                         <div>
                                             <h2 className="text-xl font-semibold text-gray-800 font-cursive">{item.name}</h2>
                                             <p className="text-sm text-gray-500">Prezzo: €{parseFloat(item.price).toFixed(2)}</p>

@@ -25,10 +25,10 @@ const Modal = ({ product, onClose, isOpen }) => {
     const handleQuantityChange = (e) => {
         const value = parseInt(e.target.value, 10);
         // Allow clearing the input or setting a valid number
-        if (e.target.value === '' || (value > 0 && (!product.availableQuantity || value <= product.availableQuantity))) {
+        if (e.target.value === '' || (value > 0 && (!product.available_quantity || value <= product.available_quantity))) {
             setQuantity(e.target.value === '' ? '' : value);
-        } else if (product.availableQuantity && value > product.availableQuantity) {
-            setQuantity(product.availableQuantity); // Cap at max available
+        } else if (product.available_quantity && value > product.available_quantity) {
+            setQuantity(product.available_quantity); // Cap at max available
         } else if (value <= 0) {
             setQuantity(1); // Reset to 1 if invalid
         }
@@ -66,23 +66,23 @@ const Modal = ({ product, onClose, isOpen }) => {
                         value={quantity}
                         onChange={handleQuantityChange}
                         min="1"
-                        max={product.availableQuantity || undefined}
-                        disabled={!product || product.availableQuantity <= 0}
+                        max={product.available_quantity || undefined}
+                        disabled={!product || product.available_quantity <= 0}
                         className="w-20 p-2 border border-gray-300 rounded-md shadow-sm focus:ring-pink-500 focus:border-pink-500 disabled:bg-gray-100 disabled:cursor-not-allowed"
                     />
                 </div>
-                {product.availableQuantity > 0 ? (
-                    <p className="text-sm text-gray-600 mb-1">Disponibilità: {product.availableQuantity}</p>
+                {product.available_quantity > 0 ? (
+                    <p className="text-sm text-gray-600 mb-1">Disponibilità: {product.available_quantity}</p>
                 ) : (
                     <p className="text-sm font-bold text-red-600 mb-1">SOLD OUT</p>
                 )}
                 <p className="text-xl font-semibold text-gray-800 mb-6">Prezzo: {product.price}€</p>
                 <button
                     onClick={handleReserve}
-                    disabled={!product || product.availableQuantity <= 0 || currentQuantity <= 0 || currentQuantity > product.availableQuantity}
+                    disabled={!product || product.available_quantity <= 0 || currentQuantity <= 0 || currentQuantity > product.available_quantity}
                     className="w-full bg-primary text-white hover:text-red-600 font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    {product.availableQuantity <= 0 ? 'Non Disponibile' : 'Prenota'}
+                    {product.available_quantity <= 0 ? 'Non Disponibile' : 'Prenota'}
                 </button>
             </div>
         </div>

@@ -4,13 +4,13 @@ import SoldOutModal from './SoldOutModal'; // Import the new SoldOutModal
 
 const ProductCard = ({ product }) => {
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [isSoldOutModalOpen, setIsSoldOutModalOpen] = useState(false); // State for sold out modal
+    const [isSoldOutModalOpen, setIsSoldOutModalOpen] = useState(false);
 
     const handleOpenModal = () => {
-        if (product.availableQuantity > 0) {
+        if (product.available_quantity > 0) {
             setIsModalOpen(true);
         } else {
-            setIsSoldOutModalOpen(true); // Open sold out modal if product is unavailable
+            setIsSoldOutModalOpen(true);
         }
     };
 
@@ -25,7 +25,7 @@ const ProductCard = ({ product }) => {
     return (
         <>
             <div
-                className={`bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 group ${product.availableQuantity > 0 ? 'hover:scale-105 cursor-pointer' : 'cursor-pointer'}`} // Removed hover:bg-primary
+                className={`bg-white rounded-lg shadow-lg overflow-hidden transform transition-all duration-300 group ${product.available_quantity > 0 ? 'hover:scale-105 cursor-pointer' : 'cursor-pointer'}`}
                 onClick={handleOpenModal}
             >
                 <div className="aspect-w-4 aspect-h-3">
@@ -40,8 +40,8 @@ const ProductCard = ({ product }) => {
                     <p className="text-gray-600 text-sm mb-3 h-16 overflow-hidden">{product.description}</p>
                     <div className="flex justify-between items-center mt-4">
                         <p className="text-lg font-bold text-primary">{product.price}€</p>
-                        {product.availableQuantity > 0 ? (
-                            <p className="text-sm text-gray-500">Disponibili: {product.availableQuantity || 'N/A'}</p>
+                        {product.available_quantity > 0 ? (
+                            <p className="text-sm text-gray-500">Disponibili: {product.available_quantity || 'N/A'}</p>
                         ) : (
                             <p className="text-sm font-bold text-red-600">SOLD OUT</p>
                         )}
@@ -49,7 +49,7 @@ const ProductCard = ({ product }) => {
                 </div>
             </div>
             {/* Modal for available products */}
-            {product.availableQuantity > 0 && <Modal product={product} isOpen={isModalOpen} onClose={handleCloseModal} />}
+            {product.available_quantity > 0 && <Modal product={product} isOpen={isModalOpen} onClose={handleCloseModal} />}
 
             {/* Modal for sold out products */}
             <SoldOutModal isOpen={isSoldOutModalOpen} onClose={handleCloseSoldOutModal} />

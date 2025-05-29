@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/ChillBitesDemo/static/css/main.ba22c006.css",
+    "main.js": "/ChillBitesDemo/static/js/main.2fe8a486.js",
+    "index.html": "/ChillBitesDemo/index.html",
+    "main.ba22c006.css.map": "/ChillBitesDemo/static/css/main.ba22c006.css.map",
+    "main.2fe8a486.js.map": "/ChillBitesDemo/static/js/main.2fe8a486.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.ba22c006.css",
+    "static/js/main.2fe8a486.js"
+  ]
+}

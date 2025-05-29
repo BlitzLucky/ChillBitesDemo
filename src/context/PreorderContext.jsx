@@ -5,19 +5,19 @@ const PreorderContext = createContext();
 export const usePreorder = () => useContext(PreorderContext);
 
 export const PreorderProvider = ({ children }) => {
-    const [preorderItems, setPreorderItems] = useState([]);
-
-    const addItemToPreorder = (productToAdd) => {
+    const [preorderItems, setPreorderItems] = useState([]);    const addItemToPreorder = (productToAdd) => {
         setPreorderItems(prevItems => {
             const existingItem = prevItems.find(item => item.id === productToAdd.id);
+            const quantityToAdd = productToAdd.quantity || 1; // Use the passed quantity or default to 1
+            
             if (existingItem) {
-                // Increase quantity if item already exists
+                // Increase quantity by the amount specified
                 return prevItems.map(item =>
-                    item.id === productToAdd.id ? { ...item, quantity: item.quantity + 1 } : item
+                    item.id === productToAdd.id ? { ...item, quantity: item.quantity + quantityToAdd } : item
                 );
             }
-            // Add new item with quantity 1
-            return [...prevItems, { ...productToAdd, quantity: 1 }];
+            // Add new item with the specified quantity
+            return [...prevItems, { ...productToAdd, quantity: quantityToAdd }];
         });
     };
 
