@@ -1,5 +1,6 @@
 import React from 'react';
 import { usePreorder } from '../context/PreorderContext'; // Import the usePreorder hook
+import { orderService } from '../services/orderService'; // Import orderService
 
 const CartPage = () => {
     const { preorderItems, removeItemFromPreorder, updateItemQuantity, getPreorderTotal, clearPreorder } = usePreorder();
@@ -11,7 +12,7 @@ const CartPage = () => {
         updateItemQuantity(productId, parseInt(newQuantity, 10));
     };
 
-    const handleFormSubmit = (event) => {
+    const handleFormSubmit = async (event) => { // Make the function async
         event.preventDefault();
         // Basic form data retrieval
         const formData = new FormData(event.target);
@@ -22,12 +23,33 @@ const CartPage = () => {
             pickupDate: formData.get('pickup-date'),
             notes: formData.get('notes'),
         };
-        // Here you would typically send the preorderItems and customerDetails to a backend
-        // or handle it as per your application's logic (e.g., send an email, save to local storage)
-        console.log("Preorder Confirmed:", { preorderItems, customerDetails });
-        alert("Prenotazione confermata! Riceverai i dettagli via email."); // Placeholder
-        clearPreorder(); // Clear the cart after submission
-        event.target.reset(); // Reset form fields
+
+        const orderData = {
+            ...customerDetails,
+            items: preorderItems,
+            // Add any other necessary order fields like discountAmount, paymentMethod etc.
+            // For example:
+            // discountAmount: 0, 
+            // paymentMethod: 'cash_on_pickup', // or get from form
+            // deliveryType: 'pickup', // or get from form
+        };
+
+        try {
+            const createdOrder = await orderService.createOrder(orderData);
+            if (createdOrder) {
+                console.log("Preorder Confirmed and Saved:", createdOrder);
+                alert("Prenotazione confermata e salvata! Riceverai i dettagli via email.");
+                clearPreorder(); // Clear the cart after submission
+                event.target.reset(); // Reset form fields
+            } else {
+                // Handle case where order creation failed but no error was thrown by the service
+                console.error("Order creation failed silently.");
+                alert("Si è verificato un errore durante il salvataggio della prenotazione. Riprova.");
+            }
+        } catch (error) {
+            console.error("Error creating order:", error);
+            alert(`Si è verificato un errore: ${error.message}. Controlla la console per i dettagli.`);
+        }
     };
 
 

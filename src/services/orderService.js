@@ -1,4 +1,5 @@
-import { supabase } from '../lib/supabase'
+import { supabase } from '../lib/supabase';
+import { productService } from './productService'; // Import productService
 
 // =====================================================
 // SERVIZIO GESTIONE ORDINI - VERSIONE MIGLIORATA
@@ -46,7 +47,20 @@ export const orderService = {
       if (orderData.items && orderData.items.length > 0) {
         const itemsResult = await this.addOrderItems(data[0].id, orderData.items);
         if (!itemsResult) {
+          // Consider rolling back order creation or logging a critical error
           throw new Error('Failed to add order items');
+        }
+
+        // Decrease product quantities
+        for (const item of orderData.items) {
+          const product = await productService.getProductById(item.id);
+          if (product) {
+            const newQuantity = product.available_quantity - item.quantity;
+            await productService.updateProductQuantity(item.id, newQuantity);
+          } else {
+            // Handle case where product is not found, though this should ideally not happen if cart is synced
+            console.warn(`Product with ID ${item.id} not found when trying to update quantity.`);
+          }
         }
       }
       
