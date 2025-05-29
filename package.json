@@ -1,6 +1,7 @@
 {
   "name": "my-sweet-shop",
   "version": "1.0.0",
+  "homepage": "https://BlitzLucky.github.io/ChillBitesDemo",
   "description": "A sweet shop application built with React and Tailwind CSS.",
   "main": "index.js",
   "scripts": {
