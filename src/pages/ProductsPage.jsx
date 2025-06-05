@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import ProductCard from '../components/ProductCard';
 import { useProducts } from '../hooks/useProducts'; // Import the hook
 
 const ProductsPage = () => {
     const { products, loading, error } = useProducts(); // Use the hook
+
+    // Scroll to top when component mounts
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     if (loading) {
         return (
@@ -22,7 +27,7 @@ const ProductsPage = () => {
                 <p className="text-sm text-gray-600">Dettagli errore: {error}</p>
                 <button 
                     onClick={() => window.location.reload()} // Simple refresh, or use refetch from useProducts if available
-                    className="mt-6 bg-primary text-white px-6 py-2 rounded-lg hover:bg-primary-dark transition-colors"
+                    className="mt-6 bg-red-500 text-white px-6 py-2 rounded-lg hover:bg-red-600 transition-colors"
                 >
                     Riprova
                 </button>
@@ -42,7 +47,7 @@ const ProductsPage = () => {
     return (
         <div className="bg-secondary py-12 md:py-16"> {/* Use secondary for white bg */}
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-3xl sm:text-4xl font-semibold text-primary text-center mb-12">
+                <h1 className="text-3xl sm:text-4xl font-semibold text-red-500 text-center mb-12">
                     La Nostra Dolce Collezione
                 </h1>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-10">

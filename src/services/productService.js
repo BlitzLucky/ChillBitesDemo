@@ -1,8 +1,7 @@
 import { supabase } from '../lib/supabase'
 
 // Servizio per gestire i prodotti
-export const productService = {
-  // Ottieni tutti i prodotti
+export const productService = {  // Ottieni tutti i prodotti
   async getAllProducts() {
     try {
       const { data, error } = await supabase
@@ -15,13 +14,19 @@ export const productService = {
         throw error
       }
       
-      return data || []
+      // Mappa i dati per convertire snake_case in camelCase
+      const mappedData = (data || []).map(product => ({
+        ...product,
+        imageUrl: product.image_url, // Converte image_url in imageUrl
+        availableQuantity: product.available_quantity // Opzionale: converte anche questo
+      }))
+      
+      return mappedData
     } catch (error) {
       console.error('Error in getAllProducts:', error)
       return []
     }
   },
-
   // Ottieni un prodotto per ID
   async getProductById(id) {
     try {
@@ -36,7 +41,14 @@ export const productService = {
         throw error
       }
       
-      return data
+      // Mappa i dati per convertire snake_case in camelCase
+      const mappedData = {
+        ...data,
+        imageUrl: data.image_url, // Converte image_url in imageUrl
+        availableQuantity: data.available_quantity // Opzionale: converte anche questo
+      }
+      
+      return mappedData
     } catch (error) {
       console.error('Error in getProductById:', error)
       return null

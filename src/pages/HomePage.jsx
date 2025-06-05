@@ -1,10 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import ProductCard from '../components/ProductCard';
 import { useProducts } from '../hooks/useProducts'; // Import the useProducts hook
 
 const HomePage = () => {
     const { products, loading, error } = useProducts(); // Use the hook
+
+    // Scroll to top when component mounts
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     return (
         <div className="bg-white text-gray-800">
@@ -15,7 +20,7 @@ const HomePage = () => {
             >
                 <div className="absolute inset-0 bg-black opacity-30"></div>
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-secondary mb-4 tracking-tight font-cursive">
+                    <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-white mb-4 tracking-tight font-cursive">
                         Benvenuti da Chill Bites
                     </h1>
                     <p className="text-lg sm:text-xl text-gray-200 mb-10 max-w-2xl mx-auto font-cursive">
@@ -23,7 +28,7 @@ const HomePage = () => {
                     </p>
                     <Link
                         to="/products"
-                        className="bg-primary text-white hover:text-red-600 font-semibold py-3 px-10 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out transform hover:-translate-y-0.5 text-lg"
+                        className="bg-red-500 text-white hover:bg-red-600 hover:text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out text-lg"
                     >
                         Esplora le Nostre Delizie
                     </Link>
@@ -33,9 +38,16 @@ const HomePage = () => {
             {/* Featured Products Section */}
             <section id="prodotti" className="py-16 md:py-20">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                    <h2 className="text-3xl sm:text-4xl font-semibold text-primary text-center mb-12">
-                        Prodotti in Evidenza
-                    </h2>
+                    <div className="text-center mb-12">
+                        <div className="inline-flex items-center justify-center gap-3 mb-4">
+                            <span className="text-4xl sm:text-5xl">🍪</span>
+                            <h2 className="text-3xl sm:text-4xl font-bold italic bg-gradient-to-r from-red-600 to-red-400 bg-clip-text text-transparent font-cursive">
+                                Prodotti in Evidenza
+                            </h2>
+                            <span className="text-4xl sm:text-5xl">🍪</span>
+                        </div>
+                        <div className="w-24 h-1 bg-gradient-to-r from-red-600 to-red-400 mx-auto rounded-full"></div>
+                    </div>
                     {loading && <p className="text-center text-lg">Caricamento prodotti...</p>}
                     {error && <p className="text-center text-lg text-red-500">Errore nel caricamento dei prodotti: {error}</p>}
                     {!loading && !error && products.length === 0 && (
@@ -52,9 +64,9 @@ const HomePage = () => {
             </section>
 
             {/* Optional: Call to Action or About Us Snippet */}
-            <section className="bg-pink-50 py-16">
+            <section className="py-16">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
-                    <h3 className="text-2xl sm:text-3xl font-semibold text-primary mb-6">
+                    <h3 className="text-2xl sm:text-3xl font-semibold text-red-500 mb-6">
                         Hai una Richiesta Speciale o un Evento?
                     </h3>
                     <p className="text-gray-600 mb-8 max-w-xl mx-auto">

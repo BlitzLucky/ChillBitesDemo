@@ -11,10 +11,9 @@ const SoldOutModal = ({ isOpen, onClose }) => {
                 <h2 className="text-2xl font-semibold text-primary mb-4 font-cursive">Prodotto Esaurito</h2>
                 <p className="text-gray-700 mb-6">
                     Siamo spiacenti, questo prodotto è momentaneamente esaurito.
-                </p>
-                <button
+                </p>                <button
                     onClick={onClose}
-                    className="bg-primary text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out"
+                    className="bg-red-500 text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-red-600 hover:shadow-lg transition-all duration-300 ease-in-out"
                 >
                     Capito
                 </button>

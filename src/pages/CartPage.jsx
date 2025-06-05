@@ -1,9 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { usePreorder } from '../context/PreorderContext'; // Import the usePreorder hook
 import { orderService } from '../services/orderService'; // Import orderService
 
 const CartPage = () => {
     const { preorderItems, removeItemFromPreorder, updateItemQuantity, getPreorderTotal, clearPreorder } = usePreorder();
+
+    // Scroll to top when component mounts
+    useEffect(() => {
+        window.scrollTo(0, 0);
+    }, []);
 
     const subtotal = getPreorderTotal();
     const totalPreorderValue = subtotal; // Assuming no additional fees for now
@@ -56,7 +61,7 @@ const CartPage = () => {
     return (
         <div className="bg-secondary py-12 md:py-16">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <h1 className="text-3xl sm:text-4xl font-semibold text-primary text-center mb-12">
+                <h1 className="text-3xl sm:text-4xl font-semibold text-red-500 text-center mb-12">
                     Riepilogo della Tua Prenotazione
                 </h1>
 
@@ -66,54 +71,50 @@ const CartPage = () => {
                     <div className="max-w-3xl mx-auto bg-white shadow-xl rounded-lg p-6 md:p-8">
                         <ul className="space-y-6 mb-8">
                             {preorderItems.map(item => (
-                                <li key={item.id} className="flex flex-col sm:flex-row items-center justify-between border-b border-pink-100 pb-4">
-                                    <div className="flex items-center mb-4 sm:mb-0">
-                                        <div>
-                                            <h2 className="text-xl font-semibold text-gray-800 font-cursive">{item.name}</h2>
-                                            <p className="text-sm text-gray-500">Prezzo: €{parseFloat(item.price).toFixed(2)}</p>
-                                        </div>
+                                <li key={item.id} className="flex items-center justify-between pb-4">
+                                    <div className="flex-1">
+                                        <h2 className="text-xl font-semibold text-gray-800 font-cursive">{item.name}</h2>
+                                        <p className="text-sm text-red-500">Prezzo unitario: €{parseFloat(item.price).toFixed(2)}</p>
                                     </div>
-                                    <div className="flex items-center space-x-3">
-                                        <label htmlFor={`quantity-${item.id}`} className="sr-only">Quantità</label>
-                                        <input
-                                            type="number"
-                                            id={`quantity-${item.id}`}
-                                            name={`quantity-${item.id}`}
-                                            min="1"
-                                            value={item.quantity}
-                                            onChange={(e) => handleQuantityChange(item.id, e.target.value)}
-                                            className="w-16 px-2 py-1 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-1 focus:ring-primary"
-                                        />
+                                    <div className="flex items-center space-x-4 min-w-0">
+                                        <div className="flex items-center space-x-2">
+                                            <label htmlFor={`quantity-${item.id}`} className="text-sm text-gray-600">Qtà:</label>
+                                            <input
+                                                type="number"
+                                                id={`quantity-${item.id}`}
+                                                name={`quantity-${item.id}`}
+                                                min="1"
+                                                value={item.quantity}
+                                                onChange={(e) => handleQuantityChange(item.id, e.target.value)}
+                                                className="w-16 px-2 py-1 border border-gray-300 rounded-md text-center focus:outline-none focus:ring-1 focus:ring-primary"
+                                            />
+                                        </div>
+                                        <span className="text-lg font-semibold text-red-500 min-w-[80px] text-right">
+                                            €{(parseFloat(item.price) * item.quantity).toFixed(2)}
+                                        </span>
                                         <button
                                             onClick={() => removeItemFromPreorder(item.id)}
-                                            className="text-red-600 hover:text-red-800 font-medium text-sm"
+                                            className="text-red-600 hover:text-red-800 font-medium text-sm whitespace-nowrap"
                                             aria-label={`Rimuovi ${item.name}`}
                                         >
                                             Rimuovi
                                         </button>
                                     </div>
-                                    <span className="text-lg font-semibold text-primary mt-2 sm:mt-0">
-                                        €{(parseFloat(item.price) * item.quantity).toFixed(2)}
-                                    </span>
                                 </li>
                             ))}
                         </ul>
 
-                        <div className="border-t border-pink-100 pt-6">
-                            <div className="flex justify-between items-center mb-2">
-                                <p className="text-gray-600">Subtotale:</p>
-                                <p className="text-gray-800 font-semibold">€{subtotal.toFixed(2)}</p>
-                            </div>
+                        <div className="pt-6">
                             {/* Add any other fees or discounts here if needed */}
-                            <div className="flex justify-between items-center text-xl font-bold text-primary mt-4">
+                            <div className="flex justify-between items-center text-xl font-bold text-red-500 mt-4">
                                 <p>Valore Totale Prenotazione:</p>
                                 <p>€{totalPreorderValue.toFixed(2)}</p>
                             </div>
                         </div>
 
                         {/* Customer Details Form */}
-                        <div className="mt-10 pt-8 border-t border-pink-200">
-                            <h2 className="text-2xl font-semibold text-primary mb-6">I Tuoi Dati per il Ritiro</h2>
+                        <div className="mt-16 pt-12 border-t-2 border-gray-300">
+                            <h2 className="text-2xl font-semibold text-red-500 mb-6">I Tuoi Dati per il Ritiro</h2>
                             <form onSubmit={handleFormSubmit} className="space-y-6">
                                 <div>
                                     <label htmlFor="name" className="block text-sm font-medium text-gray-700">Nome Completo</label>
@@ -137,7 +138,7 @@ const CartPage = () => {
                                 </div>
                                 <button
                                     type="submit"
-                                    className="w-full bg-primary hover:bg-primary-dark text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out text-lg disabled:opacity-50"
+                                    className="w-full bg-red-500 hover:bg-red-600 text-white font-semibold py-3 px-6 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 ease-in-out text-lg disabled:opacity-50"
                                     disabled={preorderItems.length === 0} // Disable button if cart is empty
                                 >
                                     Conferma Prenotazione
