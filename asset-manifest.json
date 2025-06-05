@@ -1,15 +1,18 @@
 {
   "files": {
-    "main.css": "/ChillBitesDemo/static/css/main.504bbd02.css",
-    "main.js": "/ChillBitesDemo/static/js/main.bb524cc0.js",
+    "main.css": "/ChillBitesDemo/static/css/main.054047e3.css",
+    "main.js": "/ChillBitesDemo/static/js/main.916ef9e1.js",
     "static/js/952.302db460.chunk.js": "/ChillBitesDemo/static/js/952.302db460.chunk.js",
+    "static/media/crinkles.jpg": "/ChillBitesDemo/static/media/crinkles.dcce6c34ba673910d71e.jpg",
+    "static/media/newyork-cheesecake.jpg": "/ChillBitesDemo/static/media/newyork-cheesecake.b1b2fbb79edfe9dd6215.jpg",
+    "static/media/lotus.jpg": "/ChillBitesDemo/static/media/lotus.f5bd46ba66e67607874b.jpg",
     "index.html": "/ChillBitesDemo/index.html",
-    "main.504bbd02.css.map": "/ChillBitesDemo/static/css/main.504bbd02.css.map",
-    "main.bb524cc0.js.map": "/ChillBitesDemo/static/js/main.bb524cc0.js.map",
+    "main.054047e3.css.map": "/ChillBitesDemo/static/css/main.054047e3.css.map",
+    "main.916ef9e1.js.map": "/ChillBitesDemo/static/js/main.916ef9e1.js.map",
     "952.302db460.chunk.js.map": "/ChillBitesDemo/static/js/952.302db460.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.504bbd02.css",
-    "static/js/main.bb524cc0.js"
+    "static/css/main.054047e3.css",
+    "static/js/main.916ef9e1.js"
   ]
 }
